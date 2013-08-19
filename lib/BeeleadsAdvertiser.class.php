@@ -56,7 +56,7 @@ class BeeleadsAdvertiser
 
                 if (200 == $arr_response['response']['status'])
                 { /* Feedback list successfully received */
-                    
+
                     $arr_possible_confirm_reasons = $arr_response['response']['details']['positive'];
                     $arr_possible_invalidate_reasons = $arr_response['response']['details']['negative'];
 
@@ -172,7 +172,6 @@ class BeeleadsAdvertiser
             curl_setopt($curl_handle, CURLOPT_TIMEOUT_MS, 10000);
             curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($curl_handle, CURLOPT_USERAGENT, 'BeeleadsAffiliate API/1.0');
-            curl_setopt($curl_handle, CURLOPT_VERBOSE, true);
 
             $response = curl_exec($curl_handle);
 
