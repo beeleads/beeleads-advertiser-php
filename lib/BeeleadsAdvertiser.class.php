@@ -9,8 +9,8 @@ class BeeleadsAdvertiser
 {
 
     const API_VERSION = '1.0';
-    const API_URL = 'https://hive.bldstools.com/api.php/v1/';
 
+    private $API_URL = 'https://hive.bldstools.com/api.php/v1/';
     private $advertiser_id;
     private $secret;
     private $integration_id;
@@ -42,7 +42,7 @@ class BeeleadsAdvertiser
         /* Prepare data and build URL */
         $data = http_build_query(array('integration' => $arr));
 
-        $url = self::API_URL . "integration/get_feedbacks/?token={$token}&advertiser_id={$this->advertiser_id}&{$data}";
+        $url = $this->API_URL . "integration/get_feedbacks/?token={$token}&advertiser_id={$this->advertiser_id}&{$data}";
 
         /* Call URL and parse the response */
         $arr_call = self::callApi($url);
@@ -118,7 +118,7 @@ class BeeleadsAdvertiser
 
         /* Prepare data and build URL */
         $data = http_build_query(array('integration' => $arr_feedback));
-        $url = self::API_URL . "integration/feedback/?token={$token}&advertiser_id={$this->advertiser_id}&{$data}";
+        $url = $this->API_URL . "integration/feedback/?token={$token}&advertiser_id={$this->advertiser_id}&{$data}";
 
         /* Call URL and parse the response */
         $arr_call = self::callApi($url);
@@ -171,8 +171,8 @@ class BeeleadsAdvertiser
             curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT_MS, 10000);
             curl_setopt($curl_handle, CURLOPT_TIMEOUT_MS, 10000);
             curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
-            curl_setopt($curl_handle, CURLOPT_USERAGENT, 'BeeleadsAffiliate API/1.0');
-
+            curl_setopt($curl_handle, CURLOPT_USERAGENT, 'BeeleadsAdvertiser API/1.0');
+            
             $response = curl_exec($curl_handle);
 
             $http_code = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
@@ -189,6 +189,26 @@ class BeeleadsAdvertiser
             'http_code' => $http_code,
             'response' => $response
         );
+    }
+
+    /**
+     * Sets a new API URL
+     * 
+     * @param string $url
+     */
+    public function setApiUrl($url)
+    {
+        $this->API_URL = $url;
+    }
+
+    /**
+     * Returns current API URL
+     * 
+     * @return string
+     */
+    public function getApiUrl()
+    {
+        return $this->API_URL;
     }
 
 }
